@@ -1,0 +1,25 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://cd8ombhv0hp87"]
+
+[ext_resource type="Texture2D" uid="uid://6uj02qsxp50c" path="res://assets/tile/decoration/grass_1.png" id="1_noc1x"]
+[ext_resource type="Texture2D" uid="uid://cfvj4acrsbdw" path="res://assets/tile/decoration/grass_2.png" id="2_cgao2"]
+[ext_resource type="Texture2D" uid="uid://dtwuib3ui0hun" path="res://assets/tile/decoration/grass_3.png" id="3_aik80"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltiyw"]
+resource_name = "grama_1"
+texture = ExtResource("1_noc1x")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l0glr"]
+resource_name = "grama_2"
+texture = ExtResource("2_cgao2")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_idxvu"]
+resource_name = "grama_3"
+texture = ExtResource("3_aik80")
+0:0/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_ltiyw")
+sources/1 = SubResource("TileSetAtlasSource_l0glr")
+sources/2 = SubResource("TileSetAtlasSource_idxvu")
