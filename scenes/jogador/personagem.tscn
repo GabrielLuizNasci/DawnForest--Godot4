@@ -1,7 +1,19 @@
-[gd_scene load_steps=26 format=3 uid="uid://ck4u54l7dwfr1"]
+[gd_scene load_steps=29 format=3 uid="uid://ck4u54l7dwfr1"]
 
 [ext_resource type="Script" path="res://scripts/player/personagem.gd" id="1_akeik"]
 [ext_resource type="Texture2D" uid="uid://du3fdykegsj1l" path="res://assets/player/char_red.png" id="2_et11b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6houk"]
+atlas = ExtResource("2_et11b")
+region = Rect2(0, 504, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4bgy"]
+atlas = ExtResource("2_et11b")
+region = Rect2(56, 504, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3iebr"]
+atlas = ExtResource("2_et11b")
+region = Rect2(112, 504, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cwaxi"]
 atlas = ExtResource("2_et11b")
@@ -95,6 +107,20 @@ region = Rect2(280, 0, 56, 56)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_6houk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4bgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3iebr")
+}],
+"loop": true,
+"name": &"agachar",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_cwaxi")
 }, {
 "duration": 1.0,
@@ -173,11 +199,6 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 6.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
@@ -187,7 +208,6 @@ script = ExtResource("1_akeik")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_0ikc3")
 animation = &"idle"
-frame_progress = 0.112336
 
 [node name="Area2D" type="Area2D" parent="."]
 
