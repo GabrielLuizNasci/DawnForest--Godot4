@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ck4u54l7dwfr1"]
+[gd_scene load_steps=37 format=3 uid="uid://ck4u54l7dwfr1"]
 
 [ext_resource type="Script" path="res://scripts/player/personagem.gd" id="1_akeik"]
 [ext_resource type="Texture2D" uid="uid://du3fdykegsj1l" path="res://assets/player/char_red.png" id="2_et11b"]
@@ -103,6 +103,38 @@ region = Rect2(224, 0, 56, 56)
 atlas = ExtResource("2_et11b")
 region = Rect2(280, 0, 56, 56)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qt116"]
+atlas = ExtResource("2_et11b")
+region = Rect2(0, 168, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hc0j"]
+atlas = ExtResource("2_et11b")
+region = Rect2(56, 168, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7xyl"]
+atlas = ExtResource("2_et11b")
+region = Rect2(112, 168, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc7ig"]
+atlas = ExtResource("2_et11b")
+region = Rect2(168, 168, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yphlc"]
+atlas = ExtResource("2_et11b")
+region = Rect2(224, 168, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ahvi"]
+atlas = ExtResource("2_et11b")
+region = Rect2(280, 168, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxts6"]
+atlas = ExtResource("2_et11b")
+region = Rect2(336, 168, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iy8mk"]
+atlas = ExtResource("2_et11b")
+region = Rect2(392, 168, 56, 56)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_0ikc3"]
 animations = [{
 "frames": [{
@@ -199,6 +231,35 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qt116")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hc0j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7xyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mc7ig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yphlc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ahvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxts6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iy8mk")
+}],
+"loop": true,
+"name": &"saltar",
+"speed": 6.0
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
@@ -207,7 +268,8 @@ script = ExtResource("1_akeik")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_0ikc3")
-animation = &"idle"
+animation = &"saltar"
+frame_progress = 0.798188
 
 [node name="Area2D" type="Area2D" parent="."]
 
