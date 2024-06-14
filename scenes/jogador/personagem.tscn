@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ck4u54l7dwfr1"]
+[gd_scene load_steps=38 format=3 uid="uid://ck4u54l7dwfr1"]
 
 [ext_resource type="Script" path="res://scripts/player/personagem.gd" id="1_akeik"]
 [ext_resource type="Texture2D" uid="uid://du3fdykegsj1l" path="res://assets/player/char_red.png" id="2_et11b"]
@@ -262,17 +262,25 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mae5k"]
+size = Vector2(22, 31)
+
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_akeik")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_0ikc3")
-animation = &"saltar"
-frame_progress = 0.798188
+animation = &"idle"
+frame = 3
+frame_progress = 0.995243
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 12.5)
+shape = SubResource("RectangleShape2D_mae5k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+enabled = false

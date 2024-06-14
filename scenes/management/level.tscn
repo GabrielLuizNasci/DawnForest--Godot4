@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck4wsboepb0p4"]
+[gd_scene load_steps=6 format=3 uid="uid://ck4wsboepb0p4"]
 
 [ext_resource type="TileSet" uid="uid://qd6j45evb3i7" path="res://resources/terreno_tile.tres" id="1_tjt24"]
 [ext_resource type="TileSet" uid="uid://cd8ombhv0hp87" path="res://resources/gramas_tile.tres" id="2_plck7"]
+[ext_resource type="PackedScene" uid="uid://ck4u54l7dwfr1" path="res://scenes/jogador/personagem.tscn" id="5_jqm0j"]
 [ext_resource type="PackedScene" uid="uid://clvrpef4xyqxn" path="res://scenes/ambiente/background.tscn" id="11_u4hwu"]
 [ext_resource type="PackedScene" uid="uid://dvigi6m4mrhs3" path="res://scenes/ambiente/mask.tscn" id="12_bbp10"]
 
@@ -33,3 +34,5 @@ can_process = false
 
 [node name="Mask" parent="." instance=ExtResource("12_bbp10")]
 color = Color(0.383481, 0.224373, 0.415231, 1)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_jqm0j")]
