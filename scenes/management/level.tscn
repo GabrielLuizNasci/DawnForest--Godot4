@@ -1,10 +1,81 @@
-[gd_scene load_steps=6 format=3 uid="uid://ck4wsboepb0p4"]
+[gd_scene load_steps=19 format=3 uid="uid://ck4wsboepb0p4"]
 
 [ext_resource type="TileSet" uid="uid://qd6j45evb3i7" path="res://resources/terreno_tile.tres" id="1_tjt24"]
+[ext_resource type="Texture2D" uid="uid://gnjcgy61yuh" path="res://assets/tile/decoration/fence_1.png" id="2_g0dvd"]
 [ext_resource type="TileSet" uid="uid://cd8ombhv0hp87" path="res://resources/gramas_tile.tres" id="2_plck7"]
+[ext_resource type="Texture2D" uid="uid://cd1fgkybx1er6" path="res://assets/tile/decoration/fence_2.png" id="3_8hso2"]
+[ext_resource type="Texture2D" uid="uid://bcbxlgcg7y43" path="res://assets/tile/decoration/lamp.png" id="4_icmnw"]
 [ext_resource type="PackedScene" uid="uid://ck4u54l7dwfr1" path="res://scenes/jogador/personagem.tscn" id="5_jqm0j"]
+[ext_resource type="Texture2D" uid="uid://cj8r60wp6y65k" path="res://assets/tile/decoration/rock_1.png" id="5_reqkr"]
+[ext_resource type="Texture2D" uid="uid://dyory7ok3tcsx" path="res://assets/tile/decoration/rock_2.png" id="6_ratxg"]
+[ext_resource type="Texture2D" uid="uid://s1d6dvwfhy1v" path="res://assets/tile/decoration/rock_3.png" id="7_tow2e"]
 [ext_resource type="PackedScene" uid="uid://clvrpef4xyqxn" path="res://scenes/ambiente/background.tscn" id="11_u4hwu"]
 [ext_resource type="PackedScene" uid="uid://dvigi6m4mrhs3" path="res://scenes/ambiente/mask.tscn" id="12_bbp10"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7jtra"]
+resource_name = "cerca_1"
+texture = ExtResource("2_g0dvd")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(3, 1)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_701ls"]
+resource_name = "cerca_2"
+texture = ExtResource("3_8hso2")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(3, 1)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nvlxt"]
+resource_name = "lampada"
+texture = ExtResource("4_icmnw")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(1, 2)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 16)
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qiqr6"]
+resource_name = "pedra_1"
+texture = ExtResource("5_reqkr")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x2tn1"]
+resource_name = "pedra_2"
+texture = ExtResource("6_ratxg")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ixl87"]
+resource_name = "pedra_3"
+texture = ExtResource("7_tow2e")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(2, 1)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(-16, 0)
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_0nyuf"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 2
+sources/0 = SubResource("TileSetAtlasSource_7jtra")
+sources/1 = SubResource("TileSetAtlasSource_701ls")
+sources/2 = SubResource("TileSetAtlasSource_nvlxt")
+sources/3 = SubResource("TileSetAtlasSource_qiqr6")
+sources/4 = SubResource("TileSetAtlasSource_x2tn1")
+sources/5 = SubResource("TileSetAtlasSource_ixl87")
 
 [node name="Level" type="Node2D"]
 
@@ -15,13 +86,23 @@ position = Vector2(-1, 0)
 tile_set = ExtResource("1_tjt24")
 format = 2
 layer_0/name = "terreno"
-layer_0/tile_data = PackedInt32Array(262144, 9, 0, 262145, 65545, 0, 262146, 65545, 0, 262147, 65545, 0, 262148, 131081, 0, 327684, 65545, 1, 327683, 65545, 1, 327682, 65545, 1, 327681, 65545, 1, 327680, 9, 1, 393216, 9, 1, 393217, 65545, 1, 393218, 65545, 1, 393219, 65545, 1, 393220, 65545, 1, 393221, 131081, 1, 327685, 131081, 0, 393224, 9, 1, 393225, 65545, 1, 393226, 65545, 1, 327688, 9, 0, 327689, 65545, 1, 327690, 65545, 1, 327691, 65545, 1, 262153, 9, 0, 262154, 65545, 0, 262155, 65545, 1, 262156, 65545, 1, 393227, 65545, 1, 327692, 65545, 1, 327693, 131081, 1, 393228, 65545, 1, 262157, 131081, 1, 393229, 131081, 1, 196620, 65545, 0, 196621, 131081, 1, 131085, 131081, 0, 393238, 65545, 2, 327702, 65545, 1, 262166, 65545, 0, 393237, 65545, 2, 327701, 65545, 1, 262165, 65545, 0, 393236, 65545, 2, 327700, 65545, 1, 262164, 65545, 0, 393235, 65545, 2, 327699, 65545, 1, 262163, 65545, 0, 393234, 65545, 2, 327698, 65545, 1, 262162, 65545, 1, 262161, 65545, 1, 196625, 65545, 0, 196626, 131081, 0, 327697, 65545, 1, 393233, 65545, 2, 196624, 9, 0, 262160, 9, 1, 327696, 9, 1, 393232, 9, 2, 262167, 65545, 0, 327703, 65545, 1, 393239, 65545, 2, 393240, 65545, 2, 327704, 65545, 1, 262168, 65545, 0, 262169, 131081, 0, 327705, 131081, 1, 393241, 131081, 2, 458752, 9, 2, 458753, 65545, 2, 458754, 65545, 2, 458755, 65545, 2, 458756, 65545, 2, 458757, 131081, 2, 196619, 9, 0, 458760, 9, 2, 458761, 65545, 2, 458762, 65545, 2, 458763, 65545, 2, 458764, 65545, 2, 458765, 131081, 2)
+layer_0/tile_data = PackedInt32Array(262144, 9, 0, 262145, 65545, 0, 262146, 65545, 0, 262147, 65545, 0, 262148, 131081, 0, 327684, 65545, 1, 327683, 65545, 1, 327682, 65545, 1, 327681, 65545, 1, 327680, 9, 1, 393216, 9, 1, 393217, 65545, 1, 393218, 65545, 1, 393219, 65545, 1, 393220, 65545, 1, 393221, 131081, 1, 327685, 131081, 0, 393224, 9, 1, 393225, 65545, 1, 393226, 65545, 1, 327688, 9, 0, 327689, 65545, 1, 327690, 65545, 1, 327691, 65545, 1, 262153, 9, 0, 262154, 65545, 0, 262155, 65545, 1, 262156, 65545, 1, 393227, 65545, 1, 327692, 65545, 1, 327693, 131081, 1, 393228, 65545, 1, 262157, 131081, 1, 393229, 131081, 1, 196620, 65545, 0, 196621, 131081, 1, 131085, 131081, 0, 393238, 65545, 2, 327702, 65545, 1, 262166, 65545, 0, 393237, 65545, 2, 327701, 65545, 1, 262165, 65545, 0, 393236, 65545, 2, 327700, 65545, 1, 262164, 65545, 0, 393235, 65545, 2, 327699, 65545, 1, 262163, 65545, 0, 393234, 65545, 2, 327698, 65545, 1, 262162, 65545, 1, 262161, 65545, 1, 196625, 65545, 0, 196626, 131081, 0, 327697, 65545, 1, 393233, 65545, 2, 196624, 9, 0, 262160, 9, 1, 327696, 9, 1, 393232, 9, 2, 262167, 65545, 0, 327703, 65545, 1, 393239, 65545, 2, 393240, 65545, 2, 327704, 65545, 1, 262168, 65545, 0, 262169, 65545, 0, 327705, 65545, 1, 393241, 65545, 2, 458752, 9, 2, 458753, 65545, 2, 458754, 65545, 2, 458755, 65545, 2, 458756, 65545, 2, 458757, 131081, 2, 196619, 9, 0, 458760, 9, 2, 458761, 65545, 2, 458762, 65545, 2, 458763, 65545, 2, 458764, 65545, 2, 458765, 131081, 2, 262170, 131081, 0, 327706, 131081, 1, 393242, 131081, 2)
 layer_1/name = "postes"
-layer_1/tile_data = PackedInt32Array(131090, 5, 0, 196617, 5, 0)
+layer_1/tile_data = PackedInt32Array()
 layer_2/name = "cercas"
-layer_2/tile_data = PackedInt32Array(196610, 1, 0, 196629, 1, 0, 196631, 1, 0, 196608, 6, 0, 65549, 6, 0, 196627, 6, 0, 196598, 131081, 0, 262134, 131081, 2, 262133, 9, 2)
+layer_2/tile_data = PackedInt32Array(196598, 131081, 0, 262134, 131081, 2, 262133, 9, 2)
 layer_3/name = "rochas"
 layer_3/tile_data = PackedInt32Array()
+
+[node name="ElementosdeCenario" type="TileMap" parent="LevelDesgin"]
+tile_set = SubResource("TileSet_0nyuf")
+format = 2
+layer_0/name = "lampadas"
+layer_0/tile_data = PackedInt32Array(196617, 5, 0, 196631, 2, 0, 131083, 2, 0)
+layer_1/name = "cercas"
+layer_1/tile_data = PackedInt32Array(196610, 0, 0, 196629, 0, 0, 196631, 0, 0)
+layer_2/name = "rochas"
+layer_2/tile_data = PackedInt32Array(196617, 5, 0, 196608, 3, 0, 196628, 4, 0)
 
 [node name="Grass" type="TileMap" parent="LevelDesgin"]
 tile_set = ExtResource("2_plck7")
@@ -33,6 +114,8 @@ layer_0/tile_data = PackedInt32Array(458755, 0, 0, 589834, 1, 0, 458770, 2, 0, 4
 can_process = false
 
 [node name="Mask" parent="." instance=ExtResource("12_bbp10")]
+visible = false
 color = Color(0.383481, 0.224373, 0.415231, 1)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_jqm0j")]
+position = Vector2(76, 39)
