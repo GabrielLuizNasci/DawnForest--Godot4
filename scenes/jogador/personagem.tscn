@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://ck4u54l7dwfr1"]
+[gd_scene load_steps=47 format=3 uid="uid://ck4u54l7dwfr1"]
 
 [ext_resource type="Script" path="res://scripts/player/personagem.gd" id="1_akeik"]
 [ext_resource type="Texture2D" uid="uid://du3fdykegsj1l" path="res://assets/player/char_red.png" id="2_et11b"]
@@ -47,6 +47,18 @@ region = Rect2(336, 56, 56, 56)
 atlas = ExtResource("2_et11b")
 region = Rect2(392, 56, 56, 56)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_on1ja"]
+atlas = ExtResource("2_et11b")
+region = Rect2(280, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tci4g"]
+atlas = ExtResource("2_et11b")
+region = Rect2(336, 224, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6abr"]
+atlas = ExtResource("2_et11b")
+region = Rect2(392, 224, 56, 56)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_solpr"]
 atlas = ExtResource("2_et11b")
 region = Rect2(0, 224, 56, 56)
@@ -70,14 +82,6 @@ region = Rect2(224, 224, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_enop1"]
 atlas = ExtResource("2_et11b")
 region = Rect2(280, 224, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c4uxv"]
-atlas = ExtResource("2_et11b")
-region = Rect2(336, 224, 56, 56)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1r3c4"]
-atlas = ExtResource("2_et11b")
-region = Rect2(392, 224, 56, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jj5pj"]
 atlas = ExtResource("2_et11b")
@@ -214,6 +218,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_on1ja")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tci4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6abr")
+}],
+"loop": true,
+"name": &"aterrissar",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_solpr")
 }, {
 "duration": 1.0,
@@ -230,15 +248,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_enop1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c4uxv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1r3c4")
 }],
 "loop": true,
-"name": &"aterrissar",
+"name": &"cair",
 "speed": 5.0
 }, {
 "frames": [{
@@ -334,8 +346,8 @@ player_gravity = 350
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_0ikc3")
-animation = &"idle"
-frame_progress = 0.787632
+animation = &"aterrissar"
+frame_progress = 0.640051
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 12)

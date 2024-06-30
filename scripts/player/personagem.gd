@@ -15,38 +15,49 @@ var jump_cont: int = 0
 var landing: bool = false
 
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-# var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-# var gravity = 1000
+func _ready():
+	# Conecta o sinal "landed" à função on_landed
+	connect("landed", Callable(self, "on_landed"))
 
 func _process(_delta):
 	direcao_input = Input.get_vector("esquerda","direita","salto","agachamento")
-	if(direcao_input.length() > 0):
-		if (direcao_input.y == -1):
-			$AnimatedSprite2D.play("saltar")
-		elif (direcao_input.y == 1):
-			$AnimatedSprite2D.play("agachar")
-		if (direcao_input.x == 1):
-			$AnimatedSprite2D.flip_h = false
-			$AnimatedSprite2D.play("corrida")
-			ultima_direcao_horizontal = 1
-		elif (direcao_input.x == -1):
-			$AnimatedSprite2D.flip_h = true
-			$AnimatedSprite2D.play("corrida")
-			ultima_direcao_horizontal = -1
+	if(not is_on_floor() and velocity.y < 0):
+		$AnimatedSprite2D.play("saltar")
+	elif(not is_on_floor() and velocity.y > 0):
+		$AnimatedSprite2D.play("cair")
 	else:
-		$AnimatedSprite2D.play("idle")
-		$AnimatedSprite2D.flip_h = ultima_direcao_horizontal == -1
+		if(direcao_input.length() > 0):
+			if (direcao_input.y == 1):
+				$AnimatedSprite2D.play("agachar")
+			if (direcao_input.x == 1):
+				$AnimatedSprite2D.flip_h = false
+				$AnimatedSprite2D.play("corrida")
+				ultima_direcao_horizontal = 1
+			elif (direcao_input.x == -1):
+				$AnimatedSprite2D.flip_h = true
+				$AnimatedSprite2D.play("corrida")
+				ultima_direcao_horizontal = -1
+		else:
+			$AnimatedSprite2D.play("idle")
+			$AnimatedSprite2D.flip_h = ultima_direcao_horizontal == -1
 
 func _physics_process(delta):
+	if not is_on_floor():
+		if velocity.y > 0:
+			landing = true
 	controle_movimento_horizontal()
 	controle_movimento_vertical()
 	gravity(delta)
-	# Handle jump.
-	# if Input.is_action_just_pressed("salto") and is_on_floor():
-		# velocity.y = JUMP_VELOCITY
 	
 	move_and_slide()
+	
+	if(landing and is_on_floor()):
+		$AnimatedSprite2D.play("aterrissar")
+		landing = false
+
+func on_landed():
+	# Reproduz a animação de aterrissagem quando o sinal "landed" for emitido
+	$AnimatedSprite2D.play("aterrissar") 
 
 func controle_movimento_horizontal() -> void:
 	var input_direction: float = Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
