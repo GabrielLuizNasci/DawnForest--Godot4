@@ -118,4 +118,4 @@ visible = false
 color = Color(0.383481, 0.224373, 0.415231, 1)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("5_jqm0j")]
-position = Vector2(76, 39)
+position = Vector2(68, 22)

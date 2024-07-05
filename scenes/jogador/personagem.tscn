@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://ck4u54l7dwfr1"]
+[gd_scene load_steps=51 format=3 uid="uid://ck4u54l7dwfr1"]
 
 [ext_resource type="Script" path="res://scripts/player/personagem.gd" id="1_akeik"]
 [ext_resource type="Texture2D" uid="uid://du3fdykegsj1l" path="res://assets/player/char_red.png" id="2_et11b"]
@@ -115,6 +115,18 @@ region = Rect2(336, 112, 56, 56)
 atlas = ExtResource("2_et11b")
 region = Rect2(392, 112, 56, 56)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkvwf"]
+atlas = ExtResource("2_et11b")
+region = Rect2(0, 560, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmwvn"]
+atlas = ExtResource("2_et11b")
+region = Rect2(56, 560, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfb3g"]
+atlas = ExtResource("2_et11b")
+region = Rect2(112, 560, 56, 56)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_a2f1i"]
 atlas = ExtResource("2_et11b")
 region = Rect2(0, 0, 56, 56)
@@ -213,7 +225,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_xjred")
 }],
 "loop": true,
-"name": &"ataque",
+"name": &"ataque_esquerda",
 "speed": 12.0
 }, {
 "frames": [{
@@ -284,6 +296,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_lkvwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmwvn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfb3g")
+}],
+"loop": true,
+"name": &"defesa",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_a2f1i")
 }, {
 "duration": 1.0,
@@ -335,6 +361,9 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_opbex"]
+size = Vector2(44, 26)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mae5k"]
 size = Vector2(17, 32)
 
@@ -346,10 +375,18 @@ player_gravity = 350
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_0ikc3")
-animation = &"aterrissar"
-frame_progress = 0.640051
+animation = &"ataque_esquerda"
+frame = 3
+
+[node name="AreaAtaque" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="ColisaoAtaque" type="CollisionShape2D" parent="AnimatedSprite2D/AreaAtaque"]
+position = Vector2(4, 8)
+shape = SubResource("RectangleShape2D_opbex")
+disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1.5, 12)
 shape = SubResource("RectangleShape2D_mae5k")
 
@@ -358,3 +395,7 @@ limit_top = 0
 limit_smoothed = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="body_entered" from="AnimatedSprite2D/AreaAtaque" to="." method="_on_area_ataque_body_entered"]
+[connection signal="body_exited" from="AnimatedSprite2D/AreaAtaque" to="." method="_on_area_ataque_body_exited"]

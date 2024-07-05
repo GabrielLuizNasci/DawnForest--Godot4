@@ -2,6 +2,11 @@ extends CharacterBody2D
 
 class_name Player
 
+var inimigo_emalcance = false
+var inimigo_recarga_ataque = true
+var saude = 100
+var player_vivo = true
+
 var direcao_input = Vector2(0,0)
 
 # Variáveis relacionadas a velocidade e movimentação
@@ -13,6 +18,7 @@ var ultima_direcao_horizontal = 1
 @export var player_gravity = 1000
 var jump_cont: int = 0
 var landing: bool = false
+var ataque_em_andamento = false
 
 
 func _ready():
@@ -21,6 +27,7 @@ func _ready():
 
 func _process(_delta):
 	direcao_input = Input.get_vector("esquerda","direita","salto","agachamento")
+	
 	if(not is_on_floor() and velocity.y < 0):
 		$AnimatedSprite2D.play("saltar")
 	elif(not is_on_floor() and velocity.y > 0):
@@ -42,18 +49,11 @@ func _process(_delta):
 			$AnimatedSprite2D.flip_h = ultima_direcao_horizontal == -1
 
 func _physics_process(delta):
-	if not is_on_floor():
-		if velocity.y > 0:
-			landing = true
 	controle_movimento_horizontal()
 	controle_movimento_vertical()
 	gravity(delta)
 	
 	move_and_slide()
-	
-	if(landing and is_on_floor()):
-		$AnimatedSprite2D.play("aterrissar")
-		landing = false
 
 func on_landed():
 	# Reproduz a animação de aterrissagem quando o sinal "landed" for emitido
@@ -81,3 +81,12 @@ func gravity(delta: float) -> void:
 	velocity.y += player_gravity * delta
 	if velocity.y >= player_gravity:
 		velocity.y = player_gravity
+
+func _on_area_ataque_body_entered(body):
+	if body.has_method("inimigo"):
+		inimigo_emalcance = true
+
+
+func _on_area_ataque_body_exited(body):
+	if body.has_method("inimigo"):
+		inimigo_emalcance = false
