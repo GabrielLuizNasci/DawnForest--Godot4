@@ -7,6 +7,8 @@ var inimigo_recarga_ataque = true
 var saude = 100
 var player_vivo = true
 
+var ataque_emandamento = false
+
 var direcao_input = Vector2(0,0)
 
 # Variáveis relacionadas a velocidade e movimentação
@@ -54,6 +56,11 @@ func _physics_process(delta):
 	gravity(delta)
 	
 	move_and_slide()
+	
+	if(saude <= 0):
+		player_vivo = false
+		saude = 0
+		print("Jogador Morto")
 
 func on_landed():
 	# Reproduz a animação de aterrissagem quando o sinal "landed" for emitido
@@ -82,11 +89,23 @@ func gravity(delta: float) -> void:
 	if velocity.y >= player_gravity:
 		velocity.y = player_gravity
 
+func player():
+	pass
+
 func _on_area_ataque_body_entered(body):
 	if body.has_method("inimigo"):
 		inimigo_emalcance = true
 
-
 func _on_area_ataque_body_exited(body):
 	if body.has_method("inimigo"):
 		inimigo_emalcance = false
+
+func ataque_inimigo():
+	if inimigo_emalcance and inimigo_recarga_ataque == true:
+		saude = saude - 10
+		inimigo_recarga_ataque = false
+		$DamageCooldown.start()
+		print(saude)
+
+func _on_damage_cooldown_timeout():
+	inimigo_recarga_ataque = true
