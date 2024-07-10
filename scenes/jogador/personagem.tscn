@@ -379,11 +379,13 @@ animation = &"ataque_esquerda"
 frame = 3
 
 [node name="AreaAtaque" type="Area2D" parent="AnimatedSprite2D"]
+modulate = Color(0, 1, 1, 1)
+disable_mode = 2
 
 [node name="ColisaoAtaque" type="CollisionShape2D" parent="AnimatedSprite2D/AreaAtaque"]
+modulate = Color(0, 1, 1, 1)
 position = Vector2(4, 8)
 shape = SubResource("RectangleShape2D_opbex")
-disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -399,7 +401,12 @@ drag_vertical_enabled = true
 [node name="DamageCooldown" type="Timer" parent="."]
 wait_time = 1.5
 
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="body_entered" from="AnimatedSprite2D/AreaAtaque" to="." method="_on_area_ataque_body_entered"]
 [connection signal="body_exited" from="AnimatedSprite2D/AreaAtaque" to="." method="_on_area_ataque_body_exited"]
 [connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
