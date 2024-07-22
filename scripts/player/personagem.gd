@@ -11,7 +11,9 @@ var saude = 100
 var player_vivo = true
 var ataque_em_andamento = false
 
-
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var maquina_estado: CharacterStateMachine = $CharacterStateMachine
 
 # Variáveis relacionadas a velocidade e movimentação
 var direcao_atual: String = "nenhuma"
@@ -27,38 +29,29 @@ var landing: bool = false
 
 
 func _ready():
-	pass
-	# Conecta o sinal "landed" à função on_landed
-	#connect("landed", Callable(self, "on_landed"))
-	#$AnimatedSprite2D.connect("animation_finished", Callable(self, "_on_animated_sprite_2d_animation_finished"))
+	animation_tree.active = true
 
 func _process(_delta):
+	animation_tree.set("parameters/Mover/blend_position", direcao_input.x)
 	direcao_input = Input.get_vector("esquerda","direita","salto","agachamento")
 	
 	if(ataque_em_andamento == true and global.jogador_atacando == true):
 		$AnimatedSprite2D.play("ataque_esquerda")
 		$AnimatedSprite2D.flip_h = ultima_direcao_horizontal == -1
-	elif(not is_on_floor() and velocity.y < 0):
-		$AnimatedSprite2D.play("saltar")
-	elif(not is_on_floor() and velocity.y > 0):
-		$AnimatedSprite2D.play("cair")
+		
+	if(direcao_input.length() > 0):
+		if (direcao_input.y == 1):
+			$AnimatedSprite2D.play("agachar")
+		if (direcao_input.x == 1):
+			sprite.flip_h = false
+			ultima_direcao_horizontal = 1
+			direcao_atual = "direita"
+		elif (direcao_input.x == -1):
+			sprite.flip_h = true
+			ultima_direcao_horizontal = -1
+			direcao_atual = "esquerda"
 	else:
-		if(direcao_input.length() > 0):
-			if (direcao_input.y == 1):
-				$AnimatedSprite2D.play("agachar")
-			if (direcao_input.x == 1):
-				$AnimatedSprite2D.flip_h = false
-				$AnimatedSprite2D.play("corrida")
-				ultima_direcao_horizontal = 1
-				direcao_atual = "direita"
-			elif (direcao_input.x == -1):
-				$AnimatedSprite2D.flip_h = true
-				$AnimatedSprite2D.play("corrida")
-				ultima_direcao_horizontal = -1
-				direcao_atual = "esquerda"
-		else:
-			$AnimatedSprite2D.play("idle")
-			$AnimatedSprite2D.flip_h = ultima_direcao_horizontal == -1
+		sprite.flip_h = ultima_direcao_horizontal == -1
 
 func _physics_process(delta):
 	controle_movimento_horizontal()
@@ -81,11 +74,10 @@ func on_landed():
 func controle_movimento_horizontal() -> void:
 	var input_direction: float = Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 	
-	velocity.x = input_direction * speed
-	
-	if(is_zero_approx(input_direction)):
-		# Aplica desaceleração quando não há input
-		velocity.x = lerp(velocity.x, 0.0, 0.1)
+	if( input_direction != 0 && maquina_estado.check_pode_mover()):
+		velocity.x = input_direction * speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
 
 func controle_movimento_vertical() -> void:
 	if is_on_floor():
@@ -96,10 +88,10 @@ func controle_movimento_vertical() -> void:
 		velocity.y = jump_speed
 
 func controle_ataque():
-	var direc: String = direcao_atual
 	
 	global.jogador_atacando = true
 	ataque_em_andamento = true
+	$AnimatedSprite2D/AreaAtaque/ColisaoAtaque.disabled = false
 	$AttackCooldown.start()
 
 func gravity(delta: float) -> void:
@@ -129,11 +121,8 @@ func ataque_inimigo():
 func _on_damage_cooldown_timeout():
 	inimigo_recarga_ataque = true
 
-func _on_animated_sprite_2d_animation_finished():
-	if($AnimatedSprite2D.animation == "ataque_esquerda"):
-		global.jogador_atacando = false
-
 func _on_attack_cooldown_timeout():
 	$DamageCooldown.stop()
 	global.jogador_atacando = false
 	ataque_em_andamento = false
+	$AnimatedSprite2D/AreaAtaque/ColisaoAtaque.disabled = true
