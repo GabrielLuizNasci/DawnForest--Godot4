@@ -718,10 +718,10 @@ tree_root = SubResource("AnimationNodeStateMachine_73avw")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Mover/blend_position = 0
 
-[node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "current_state")]
+[node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("player", "estado_atual")]
 script = ExtResource("3_ppxhp")
-character = NodePath("..")
-current_state = NodePath("Ground")
+player = NodePath("..")
+estado_atual = NodePath("Ground")
 
 [node name="Ground" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("air_state")]
 script = ExtResource("4_fgeto")
@@ -732,6 +732,7 @@ script = ExtResource("5_elrs5")
 
 [node name="Landing" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("6_14cor")
+pode_mover = false
 
 [connection signal="body_entered" from="AnimatedSprite2D/AreaAtaque" to="." method="_on_area_ataque_body_entered"]
 [connection signal="body_exited" from="AnimatedSprite2D/AreaAtaque" to="." method="_on_area_ataque_body_exited"]

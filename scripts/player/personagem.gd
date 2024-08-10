@@ -22,9 +22,7 @@ var direcao_input = Vector2(0,0)
 var ultima_direcao_horizontal = 1
 
 # Variáveis relacionadas a salto
-@export var jump_speed = -400.0
 @export var player_gravity = 1000
-var jump_cont: int = 0
 var landing: bool = false
 
 
@@ -55,7 +53,6 @@ func _process(_delta):
 
 func _physics_process(delta):
 	controle_movimento_horizontal()
-	controle_movimento_vertical()
 	gravity(delta)
 	
 	move_and_slide()
@@ -74,18 +71,10 @@ func on_landed():
 func controle_movimento_horizontal() -> void:
 	var input_direction: float = Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 	
-	if( input_direction != 0 && maquina_estado.check_pode_mover()):
+	if( input_direction != 0 && maquina_estado.check_can_move()):
 		velocity.x = input_direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-
-func controle_movimento_vertical() -> void:
-	if is_on_floor():
-		jump_cont = 0
-	
-	if Input.is_action_just_pressed("salto") and jump_cont < 2:
-		jump_cont += 1
-		velocity.y = jump_speed
 
 func controle_ataque():
 	
