@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://ck4u54l7dwfr1"]
+[gd_scene load_steps=72 format=3 uid="uid://ck4u54l7dwfr1"]
 
 [ext_resource type="Script" path="res://scripts/player/personagem.gd" id="1_akeik"]
 [ext_resource type="Texture2D" uid="uid://du3fdykegsj1l" path="res://assets/player/char_red.png" id="2_et11b"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/player/groundState.gd" id="4_fgeto"]
 [ext_resource type="Script" path="res://scripts/player/airState.gd" id="5_elrs5"]
 [ext_resource type="Script" path="res://scripts/player/landingState.gd" id="6_14cor"]
+[ext_resource type="Script" path="res://scripts/player/nomeEstados.gd" id="7_beyfo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6houk"]
 atlas = ExtResource("2_et11b")
@@ -727,11 +728,21 @@ current_state = NodePath("Ground")
 script = ExtResource("4_fgeto")
 air_state = NodePath("../Air")
 
-[node name="Air" type="Node" parent="CharacterStateMachine"]
+[node name="Air" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("groud_state")]
 script = ExtResource("5_elrs5")
+groud_state = NodePath("../Ground")
 
 [node name="Landing" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("6_14cor")
+
+[node name="NomeEstados" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
+offset_left = -35.0
+offset_top = -28.0
+offset_right = 73.0
+offset_bottom = -5.0
+text = "Estado:"
+script = ExtResource("7_beyfo")
+state_machine = NodePath("../CharacterStateMachine")
 
 [connection signal="body_entered" from="AnimatedSprite2D/AreaAtaque" to="." method="_on_area_ataque_body_entered"]
 [connection signal="body_exited" from="AnimatedSprite2D/AreaAtaque" to="." method="_on_area_ataque_body_exited"]
