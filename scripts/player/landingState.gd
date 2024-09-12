@@ -2,7 +2,7 @@ extends State
 
 class_name LandingState
 
-@export var landing_animation: String = "aterrisar"
+@export var landing_animation: String = "aterrissar"
 @export var ground_state: State
 
 func _on_animation_tree_animation_finished(anim_name):

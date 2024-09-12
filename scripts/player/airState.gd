@@ -5,6 +5,7 @@ class_name AirState
 @export var djump_speed = -150.0
 @export var landing_state : State
 @export var animacao_saltod: String = "salto_duplo"
+@export var landing_animation: String = "aterrissar"
 
 var double_jump_count : int = 1
 
@@ -18,6 +19,7 @@ func state_input(event: InputEvent):
 
 func on_exit():
 	if(next_state == landing_state):
+		playback.travel(landing_animation)
 		double_jump_count = 1
 
 func double_jump():

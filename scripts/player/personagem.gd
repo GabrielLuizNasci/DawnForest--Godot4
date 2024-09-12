@@ -32,10 +32,6 @@ func _ready():
 func _process(_delta):
 	animation_tree.set("parameters/Mover/blend_position", direcao_input.x)
 	direcao_input = Input.get_vector("esquerda","direita","salto","agachamento")
-	
-	if(ataque_em_andamento == true and global.jogador_atacando == true):
-		$AnimatedSprite2D.play("ataque_esquerda")
-		$AnimatedSprite2D.flip_h = ultima_direcao_horizontal == -1
 		
 	if(direcao_input.length() > 0):
 		if (direcao_input.y == 1):
