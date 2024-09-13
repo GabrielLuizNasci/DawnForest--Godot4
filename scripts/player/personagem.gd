@@ -61,9 +61,6 @@ func _physics_process(delta):
 		saude = 0
 		print("Jogador Morto")
 
-func on_landed():
-	$AnimatedSprite2D.play("aterrissar") 
-
 func controle_movimento_horizontal() -> void:
 	var input_direction: float = Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 	
