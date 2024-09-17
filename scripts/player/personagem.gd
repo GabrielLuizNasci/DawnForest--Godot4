@@ -30,7 +30,7 @@ func _ready():
 	animation_tree.active = true
 
 func _process(_delta):
-	animation_tree.set("parameters/Mover/blend_position", direcao_input.x)
+	animation_tree.set("parameters/mover/blend_position", direcao_input.x)
 	direcao_input = Input.get_vector("esquerda","direita","salto","agachamento")
 		
 	if(direcao_input.length() > 0):
@@ -53,9 +53,6 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-	if(Input.is_action_just_pressed("ataque")):
-		controle_ataque()
-	
 	if(saude <= 0):
 		player_vivo = false
 		saude = 0
@@ -68,13 +65,6 @@ func controle_movimento_horizontal() -> void:
 		velocity.x = input_direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-
-func controle_ataque():
-	
-	global.jogador_atacando = true
-	ataque_em_andamento = true
-	$AnimatedSprite2D/AreaAtaque/ColisaoAtaque.disabled = false
-	$AttackCooldown.start()
 
 func gravity(delta: float) -> void:
 	# Add the gravity.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ck4u54l7dwfr1"]
+[gd_scene load_steps=44 format=3 uid="uid://ck4u54l7dwfr1"]
 
 [ext_resource type="Script" path="res://scripts/player/personagem.gd" id="1_akeik"]
 [ext_resource type="Texture2D" uid="uid://du3fdykegsj1l" path="res://assets/player/char_red.png" id="2_et11b"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/player/landingState.gd" id="6_14cor"]
 [ext_resource type="Script" path="res://scripts/player/nomeEstados.gd" id="7_beyfo"]
 [ext_resource type="Script" path="res://scripts/player/attackState.gd" id="7_tt3ds"]
+[ext_resource type="Script" path="res://scripts/player/espada.gd" id="9_1yuin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mae5k"]
 size = Vector2(17, 32)
@@ -62,6 +63,21 @@ tracks/3/keys = {
 "update": 1,
 "values": [ExtResource("2_et11b")]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Espada/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hv2tn"]
+size = Vector2(37, 15)
 
 [sub_resource type="Animation" id="Animation_nyvg2"]
 resource_name = "ataque1"
@@ -114,6 +130,54 @@ tracks/3/keys = {
 "update": 1,
 "values": [9, 9, 9, 9, 9, 10, 11, 12, 13]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Espada/CollisionShape2D:shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_hv2tn")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Espada/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 5.5)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Espada/CollisionShape2D:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Espada/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="Animation" id="Animation_ac1rq"]
 resource_name = "ataque2"
@@ -165,6 +229,54 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [13, 14, 15]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Espada/CollisionShape2D:shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.133333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_hv2tn")]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Espada/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.133333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 12.5)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Espada/CollisionShape2D:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.133333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Espada/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_yry6m"]
@@ -497,6 +609,15 @@ _data = {
 "salto_duplo": SubResource("Animation_nghqf")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x2j7i"]
+animation = &"ataque1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1gpqt"]
+animation = &"ataque2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jb2ew"]
+animation = &"aterrissar"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b5sxl"]
 animation = &"idle"
 
@@ -514,15 +635,6 @@ blend_point_1/pos = 1.0
 blend_point_2/node = SubResource("AnimationNodeAnimation_2ojlr")
 blend_point_2/pos = -1.0
 blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x2j7i"]
-animation = &"ataque1"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1gpqt"]
-animation = &"ataque2"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jb2ew"]
-animation = &"aterrissar"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vf1mm"]
 animation = &"queda"
@@ -561,8 +673,6 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_73avw"]
 states/End/position = Vector2(742, 114)
-states/Mover/node = SubResource("AnimationNodeBlendSpace1D_i2icx")
-states/Mover/position = Vector2(358, 114)
 states/Start/position = Vector2(198, 114)
 states/ataque1/node = SubResource("AnimationNodeAnimation_x2j7i")
 states/ataque1/position = Vector2(358, 197.84)
@@ -570,14 +680,16 @@ states/ataque2/node = SubResource("AnimationNodeAnimation_1gpqt")
 states/ataque2/position = Vector2(533, 197.84)
 states/aterrissar/node = SubResource("AnimationNodeAnimation_jb2ew")
 states/aterrissar/position = Vector2(547, 114)
+states/mover/node = SubResource("AnimationNodeBlendSpace1D_i2icx")
+states/mover/position = Vector2(358, 114)
 states/queda/node = SubResource("AnimationNodeAnimation_vf1mm")
 states/queda/position = Vector2(533, 32)
 states/salto/node = SubResource("AnimationNodeAnimation_mrqbw")
 states/salto/position = Vector2(358, -3)
 states/salto_duplo/node = SubResource("AnimationNodeAnimation_3y52r")
 states/salto_duplo/position = Vector2(473, -65.8402)
-transitions = ["Start", "Mover", SubResource("AnimationNodeStateMachineTransition_bmpei"), "Mover", "salto", SubResource("AnimationNodeStateMachineTransition_y3irn"), "salto", "queda", SubResource("AnimationNodeStateMachineTransition_acbpc"), "queda", "aterrissar", SubResource("AnimationNodeStateMachineTransition_0dhl1"), "aterrissar", "Mover", SubResource("AnimationNodeStateMachineTransition_8548u"), "salto", "salto_duplo", SubResource("AnimationNodeStateMachineTransition_1mwh6"), "salto_duplo", "queda", SubResource("AnimationNodeStateMachineTransition_dtbl8"), "Mover", "ataque1", SubResource("AnimationNodeStateMachineTransition_c8efe"), "ataque1", "ataque2", SubResource("AnimationNodeStateMachineTransition_mrfv1"), "ataque1", "Mover", SubResource("AnimationNodeStateMachineTransition_vay7n"), "ataque2", "Mover", SubResource("AnimationNodeStateMachineTransition_4gx7g")]
-graph_offset = Vector2(0, 29.8401)
+transitions = ["Start", "mover", SubResource("AnimationNodeStateMachineTransition_bmpei"), "mover", "salto", SubResource("AnimationNodeStateMachineTransition_y3irn"), "salto", "queda", SubResource("AnimationNodeStateMachineTransition_acbpc"), "queda", "aterrissar", SubResource("AnimationNodeStateMachineTransition_0dhl1"), "aterrissar", "mover", SubResource("AnimationNodeStateMachineTransition_8548u"), "salto", "salto_duplo", SubResource("AnimationNodeStateMachineTransition_1mwh6"), "salto_duplo", "queda", SubResource("AnimationNodeStateMachineTransition_dtbl8"), "mover", "ataque1", SubResource("AnimationNodeStateMachineTransition_c8efe"), "ataque1", "ataque2", SubResource("AnimationNodeStateMachineTransition_mrfv1"), "ataque1", "mover", SubResource("AnimationNodeStateMachineTransition_vay7n"), "ataque2", "mover", SubResource("AnimationNodeStateMachineTransition_4gx7g")]
+graph_offset = Vector2(0, 9.55321)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_akeik")
@@ -612,7 +724,7 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_73avw")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Mover/blend_position = -0.395137
+parameters/mover/blend_position = -0.395137
 
 [node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("character", "animation_tree", "current_state")]
 script = ExtResource("3_ppxhp")
@@ -634,9 +746,14 @@ script = ExtResource("6_14cor")
 ground_state = NodePath("../Ground")
 can_move = false
 
-[node name="Attack" type="Node" parent="CharacterStateMachine"]
+[node name="Attack" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("return_state")]
 script = ExtResource("7_tt3ds")
+return_state = NodePath("../Ground")
 can_move = false
+
+[node name="Timer" type="Timer" parent="CharacterStateMachine/Attack"]
+wait_time = 0.3
+one_shot = true
 
 [node name="NomeEstados" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -35.0
@@ -647,6 +764,15 @@ text = "Estado:"
 script = ExtResource("7_beyfo")
 state_machine = NodePath("../CharacterStateMachine")
 
+[node name="Espada" type="Area2D" parent="."]
+script = ExtResource("9_1yuin")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Espada"]
+position = Vector2(1.5, 12.5)
+shape = SubResource("RectangleShape2D_hv2tn")
+
 [connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="animation_finished" from="AnimationTree" to="CharacterStateMachine/Landing" method="_on_animation_tree_animation_finished"]
+[connection signal="animation_finished" from="AnimationTree" to="CharacterStateMachine/Attack" method="_on_animation_tree_animation_finished"]
+[connection signal="body_entered" from="Espada" to="Espada" method="_on_body_entered"]
