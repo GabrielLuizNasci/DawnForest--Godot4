@@ -8,11 +8,13 @@ class_name GroundState
 @export var air_state: State
 @export var attack_state: State
 @export var defense_state: State
+@export var crouch_state: State
 
 #Animações
 @export var animacao_salto: String = "salto"
 @export var animacao_ataque: String = "ataque1"
 @export var animacao_defesa: String = "defesa"
+@export var animacao_agachar: String = "agachar"
 
 var jump_cont: int = 0
 
@@ -27,6 +29,8 @@ func state_input(event: InputEvent):
 		ataque()
 	if(event.is_action_pressed("defesa")):
 		defesa()
+	if(event.is_action_pressed("agachamento")):
+		agachar()
 
 func salto():
 	character.velocity.y = jump_speed
@@ -40,3 +44,7 @@ func ataque():
 func defesa():
 	next_state = defense_state
 	playback.travel(animacao_defesa)
+
+func agachar():
+	next_state = crouch_state
+	playback.travel(animacao_agachar)

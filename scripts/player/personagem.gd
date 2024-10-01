@@ -34,8 +34,6 @@ func _process(_delta):
 	direcao_input = Input.get_vector("esquerda","direita","salto","agachamento")
 		
 	if(direcao_input.length() > 0):
-		if (direcao_input.y == 1):
-			$AnimatedSprixte2D.play("agachar")
 		if (direcao_input.x == 1):
 			sprite.flip_h = false
 			ultima_direcao_horizontal = 1
