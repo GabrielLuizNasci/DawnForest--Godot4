@@ -15,9 +15,10 @@ func _ready():
 			
 			child.character = character
 			child.playback = animation_tree["parameters/playback"]
-			
 		else:
 			push_warning("Filho " + child.name + "Não é um State para CharacterStateMachine")
+	character.connect("gravidade_normal", Callable(self, "_on_gravidade_normal"))
+	character.connect("gravidade_slide", Callable(self, "_on_gravidade_slide"))
 
 func _physics_process(delta):
 	if(current_state.next_state != null):
@@ -39,3 +40,9 @@ func switch_states(new_state: State):
 func _input(event: InputEvent):
 	if(current_state != null):
 		current_state.state_input(event)
+
+func _on_gravidade_normal():
+	character.player_gravity = 350
+
+func _on_gravidade_slide():
+	character.player_gravity = 150  

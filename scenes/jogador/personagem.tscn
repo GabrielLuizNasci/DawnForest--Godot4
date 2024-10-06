@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://ck4u54l7dwfr1"]
+[gd_scene load_steps=65 format=3 uid="uid://ck4u54l7dwfr1"]
 
 [ext_resource type="Script" path="res://scripts/player/personagem.gd" id="1_akeik"]
 [ext_resource type="Texture2D" uid="uid://du3fdykegsj1l" path="res://assets/player/char_red.png" id="2_et11b"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/player/defenseState.gd" id="8_bggjg"]
 [ext_resource type="Script" path="res://scripts/player/espada.gd" id="9_1yuin"]
 [ext_resource type="Script" path="res://scripts/player/crouchState.gd" id="9_n8xtv"]
+[ext_resource type="Script" path="res://scripts/player/slideState.gd" id="10_vymdu"]
 [ext_resource type="Script" path="res://scripts/player/escudo.gd" id="11_6ms8o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mae5k"]
@@ -1065,6 +1066,47 @@ tracks/5/keys = {
 "values": [Vector2(-2, 12.25), Vector2(-2, 6.5)]
 }
 
+[sub_resource type="Animation" id="Animation_njtqq"]
+resource_name = "wall_slide"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [85, 86]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:shape:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14.25, 27.25)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.125, 10.375)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6v6mg"]
 _data = {
 "RESET": SubResource("Animation_vkym1"),
@@ -1077,7 +1119,8 @@ _data = {
 "idle": SubResource("Animation_24xje"),
 "queda": SubResource("Animation_qddwy"),
 "salto": SubResource("Animation_duxq5"),
-"salto_duplo": SubResource("Animation_nghqf")
+"salto_duplo": SubResource("Animation_nghqf"),
+"wall_slide": SubResource("Animation_njtqq")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_be6h1"]
@@ -1122,6 +1165,9 @@ animation = &"salto"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3y52r"]
 animation = &"salto_duplo"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mb3pf"]
+animation = &"wall_slide"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bmpei"]
 advance_mode = 2
 
@@ -1158,6 +1204,16 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mwodf"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cmfu0"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ss3qu"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1adbw"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8rnbu"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7gbms"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_73avw"]
 states/End/position = Vector2(742, 114)
 states/Start/position = Vector2(89, 164)
@@ -1168,19 +1224,21 @@ states/ataque1/position = Vector2(448, 260.926)
 states/ataque2/node = SubResource("AnimationNodeAnimation_1gpqt")
 states/ataque2/position = Vector2(582, 260.926)
 states/aterrissar/node = SubResource("AnimationNodeAnimation_jb2ew")
-states/aterrissar/position = Vector2(541, 98)
+states/aterrissar/position = Vector2(568, 96)
 states/defesa/node = SubResource("AnimationNodeAnimation_xuxhb")
 states/defesa/position = Vector2(299, 260.926)
 states/mover/node = SubResource("AnimationNodeBlendSpace1D_i2icx")
 states/mover/position = Vector2(249, 164)
 states/queda/node = SubResource("AnimationNodeAnimation_vf1mm")
-states/queda/position = Vector2(541, 8)
+states/queda/position = Vector2(705, 25)
 states/salto/node = SubResource("AnimationNodeAnimation_mrqbw")
-states/salto/position = Vector2(358, -3)
+states/salto/position = Vector2(277, -8)
 states/salto_duplo/node = SubResource("AnimationNodeAnimation_3y52r")
-states/salto_duplo/position = Vector2(473, -65.8402)
-transitions = ["Start", "mover", SubResource("AnimationNodeStateMachineTransition_bmpei"), "mover", "salto", SubResource("AnimationNodeStateMachineTransition_y3irn"), "salto", "queda", SubResource("AnimationNodeStateMachineTransition_acbpc"), "queda", "aterrissar", SubResource("AnimationNodeStateMachineTransition_0dhl1"), "aterrissar", "mover", SubResource("AnimationNodeStateMachineTransition_8548u"), "salto", "salto_duplo", SubResource("AnimationNodeStateMachineTransition_1mwh6"), "salto_duplo", "queda", SubResource("AnimationNodeStateMachineTransition_dtbl8"), "mover", "ataque1", SubResource("AnimationNodeStateMachineTransition_c8efe"), "ataque1", "ataque2", SubResource("AnimationNodeStateMachineTransition_mrfv1"), "ataque1", "mover", SubResource("AnimationNodeStateMachineTransition_vay7n"), "ataque2", "mover", SubResource("AnimationNodeStateMachineTransition_4gx7g"), "mover", "defesa", SubResource("AnimationNodeStateMachineTransition_dbq3b"), "defesa", "mover", SubResource("AnimationNodeStateMachineTransition_03eim"), "mover", "agachar", SubResource("AnimationNodeStateMachineTransition_5hh04"), "agachar", "mover", SubResource("AnimationNodeStateMachineTransition_q812w"), "agachar", "salto", SubResource("AnimationNodeStateMachineTransition_mwodf")]
-graph_offset = Vector2(0, 31.6498)
+states/salto_duplo/position = Vector2(441, -25.8402)
+states/wall_slide/node = SubResource("AnimationNodeAnimation_mb3pf")
+states/wall_slide/position = Vector2(448, -132.875)
+transitions = ["Start", "mover", SubResource("AnimationNodeStateMachineTransition_bmpei"), "mover", "salto", SubResource("AnimationNodeStateMachineTransition_y3irn"), "salto", "queda", SubResource("AnimationNodeStateMachineTransition_acbpc"), "queda", "aterrissar", SubResource("AnimationNodeStateMachineTransition_0dhl1"), "aterrissar", "mover", SubResource("AnimationNodeStateMachineTransition_8548u"), "salto", "salto_duplo", SubResource("AnimationNodeStateMachineTransition_1mwh6"), "salto_duplo", "queda", SubResource("AnimationNodeStateMachineTransition_dtbl8"), "mover", "ataque1", SubResource("AnimationNodeStateMachineTransition_c8efe"), "ataque1", "ataque2", SubResource("AnimationNodeStateMachineTransition_mrfv1"), "ataque1", "mover", SubResource("AnimationNodeStateMachineTransition_vay7n"), "ataque2", "mover", SubResource("AnimationNodeStateMachineTransition_4gx7g"), "mover", "defesa", SubResource("AnimationNodeStateMachineTransition_dbq3b"), "defesa", "mover", SubResource("AnimationNodeStateMachineTransition_03eim"), "mover", "agachar", SubResource("AnimationNodeStateMachineTransition_5hh04"), "agachar", "mover", SubResource("AnimationNodeStateMachineTransition_q812w"), "agachar", "salto", SubResource("AnimationNodeStateMachineTransition_mwodf"), "aterrissar", "salto", SubResource("AnimationNodeStateMachineTransition_cmfu0"), "salto", "wall_slide", SubResource("AnimationNodeStateMachineTransition_ss3qu"), "wall_slide", "salto", SubResource("AnimationNodeStateMachineTransition_1adbw"), "salto_duplo", "wall_slide", SubResource("AnimationNodeStateMachineTransition_8rnbu"), "wall_slide", "aterrissar", SubResource("AnimationNodeStateMachineTransition_7gbms")]
+graph_offset = Vector2(0, -157.047)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_akeik")
@@ -1230,13 +1288,15 @@ attack_state = NodePath("../Attack")
 defense_state = NodePath("../Defense")
 crouch_state = NodePath("../Crouch")
 
-[node name="Air" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("landing_state")]
+[node name="Air" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("landing_state", "slide_state")]
 script = ExtResource("5_elrs5")
 landing_state = NodePath("../Landing")
+slide_state = NodePath("../Slide")
 
-[node name="Landing" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state")]
+[node name="Landing" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "air_state")]
 script = ExtResource("6_14cor")
 ground_state = NodePath("../Ground")
+air_state = NodePath("../Air")
 
 [node name="Attack" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("return_state")]
 script = ExtResource("7_tt3ds")
@@ -1258,6 +1318,11 @@ script = ExtResource("9_n8xtv")
 return_state = NodePath("../Ground")
 air_state = NodePath("../Air")
 can_move = false
+
+[node name="Slide" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("landing_state", "air_state")]
+script = ExtResource("10_vymdu")
+landing_state = NodePath("../Landing")
+air_state = NodePath("../Air")
 
 [node name="NomeEstados" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -35.0
@@ -1281,6 +1346,9 @@ script = ExtResource("11_6ms8o")
 position = Vector2(2, 12)
 shape = SubResource("RectangleShape2D_tbcjj")
 disabled = true
+
+[node name="WallRay" type="RayCast2D" parent="."]
+target_position = Vector2(7, 0)
 
 [connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]

@@ -2,14 +2,11 @@ extends CharacterBody2D
 
 class_name Player
 
-#Variáveis de Nimigo
-var inimigo_emalcance = false
-var inimigo_recarga_ataque = true
-
 #Variáveis para player
 var saude = 100
 var player_vivo = true
-var ataque_em_andamento = false
+signal gravidade_normal
+signal gravidade_slide
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
@@ -65,34 +62,9 @@ func controle_movimento_horizontal() -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 
 func gravity(delta: float) -> void:
-	# Add the gravity.
 	velocity.y += player_gravity * delta
 	if velocity.y >= player_gravity:
 		velocity.y = player_gravity
 
 func player():
 	pass
-
-func _on_area_ataque_body_entered(body):
-	if body.has_method("inimigo"):
-		inimigo_emalcance = true
-
-func _on_area_ataque_body_exited(body):
-	if body.has_method("inimigo"):
-		inimigo_emalcance = false
-
-func ataque_inimigo():
-	if inimigo_emalcance and inimigo_recarga_ataque == true:
-		saude = saude - 10
-		inimigo_recarga_ataque = false
-		$DamageCooldown.start()
-		print(saude)
-
-func _on_damage_cooldown_timeout():
-	inimigo_recarga_ataque = true
-
-func _on_attack_cooldown_timeout():
-	$DamageCooldown.stop()
-	global.jogador_atacando = false
-	ataque_em_andamento = false
-	$AnimatedSprite2D/AreaAtaque/ColisaoAtaque.disabled = true
